@@ -55,6 +55,7 @@ class MainiActivity : FNBaseActivity() {
         val splashScreen = installSplashScreen()
         super.onCreate(savedInstanceState)
 
+        businessSDK.initSplashAD(this)
 
         setContent {
             var finishSplashScreen by remember { mutableStateOf(false) }

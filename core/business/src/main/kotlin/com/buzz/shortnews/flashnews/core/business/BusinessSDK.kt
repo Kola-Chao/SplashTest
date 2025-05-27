@@ -69,7 +69,6 @@ class BusinessSDK @Inject constructor(
     }
 
     fun initSplashAD(listener: ATSplashExListener) {
-        if (BuildConfig.DEVELOPER_MODE) return
         if (splashAd != null) return
         splashAd = ATSplashAd(context, BuildConfig.TOPON_AD_SPLASH, listener)
         splashAd?.loadAd()
@@ -89,7 +88,6 @@ class BusinessSDK @Inject constructor(
 
     fun initAllAD(activity: Activity) {
         Timber.d("initAllAD")
-        if (BuildConfig.DEVELOPER_MODE) return
         if (nativeAd == null) {
             nativeAd = ATNative(
                 context, BuildConfig.TOPON_AD_NATIVE, this@BusinessSDK

@@ -21,6 +21,7 @@ import androidx.lifecycle.ProcessLifecycleOwner
 import com.adjust.sdk.Adjust
 
 import com.buzz.shortnews.flashnews.core.business.ApplicationScope
+import com.buzz.shortnews.flashnews.core.business.BusinessSDK
 import com.buzz.shortnews.flashnews.core.business.BusinessSDKUtil
 
 import com.buzz.shortnews.flashnews.core.common.dispatcher.Dispatcher

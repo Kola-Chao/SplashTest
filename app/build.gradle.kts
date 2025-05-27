@@ -19,7 +19,7 @@ plugins {
     alias(libs.plugins.newsapp.android.application.compose)
     alias(libs.plugins.newsapp.android.application.flavors)
 //    alias(libs.plugins.newsapp.android.application.jacoco)
-    alias(libs.plugins.newsapp.android.application.firebase)
+//    alias(libs.plugins.newsapp.android.application.firebase)
     alias(libs.plugins.newsapp.hilt)
 //    id("com.google.android.gms.oss-licenses-plugin")
 //    alias(libs.plugins.baselineprofile)
@@ -82,6 +82,8 @@ android {
 }
 
 dependencies {
+    implementation(projects.core.business)
+    implementation(projects.core.designsystem)
 
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.compose.material3.adaptive)
@@ -105,7 +107,7 @@ dependencies {
     implementation(libs.google.gms.ads.identifier)
     implementation(libs.google.gms.base)
     implementation(libs.androidx.lifecycle.process)
-    implementation(libs.firebase.cloud.messaging)
+//    implementation(libs.firebase.cloud.messaging)
     implementation(libs.accompanist.permissions)
 
 

@@ -34,8 +34,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.DialogProperties
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.buzz.shortnews.flashnews.core.analytics.AnalyticsEvent
-import com.buzz.shortnews.flashnews.core.analytics.LocalAnalyticsHelper
 import com.buzz.shortnews.flashnews.core.designsystem.dialog.BaseDialog
 import com.buzz.shortnews.flashnews.core.ui.commonDrawable
 import com.buzz.shortnews.flashnews.core.designsystem.theme.background_light
@@ -50,7 +48,6 @@ import timber.log.Timber
 @Composable
 fun SplashScreenDialog(
     duration: State<Int>,
-    startLoading: State<Boolean?>,
     onFinish: () -> Unit,
     dismissCallback: () -> Unit
 ) {
@@ -62,12 +59,12 @@ fun SplashScreenDialog(
             usePlatformDefaultWidth = false
         )
     ) {
-        SplashScreen(duration, startLoading, onFinish)
+        SplashScreen(duration, onFinish)
     }
 }
 
 @Composable
-fun SplashScreen(duration: State<Int>, startLoading: State<Boolean?>, onFinish: () -> Unit) {
+fun SplashScreen(duration: State<Int>, onFinish: () -> Unit) {
 //    val analyticsHelper = LocalAnalyticsHelper.current
 //    analyticsHelper.logEvent(
 //        AnalyticsEvent(
@@ -99,7 +96,7 @@ fun SplashScreen(duration: State<Int>, startLoading: State<Boolean?>, onFinish: 
                 .align(Alignment.BottomCenter) // 关键：对齐到底部
                 .padding(bottom = 52.dp)// 可调整底部间距
         ) {
-            ProgressGroup(duration, startLoading, onFinish)
+            ProgressGroup(duration, onFinish)
             Spacer(modifier = Modifier.height(24.dp))
 
             Text(
@@ -114,14 +111,12 @@ fun SplashScreen(duration: State<Int>, startLoading: State<Boolean?>, onFinish: 
 @Composable
 private fun ProgressGroup(
     duration: State<Int>,
-    startLoading: State<Boolean?>,
     onFinish: () -> Unit
 ) {
     val width = 208.dp
     var progress by remember { mutableFloatStateOf(0f) }
     val aDuration = duration.value
-    LaunchedEffect(key1 = startLoading.value) {
-        if (startLoading.value?.not() == true) return@LaunchedEffect
+    LaunchedEffect(key1 = Unit) {
         Timber.d("startLoading...$aDuration")
         //模拟加载进度
         while (progress < 0.99f) {

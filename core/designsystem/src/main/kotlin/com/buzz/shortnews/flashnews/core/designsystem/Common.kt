@@ -186,58 +186,7 @@ fun Modifier.singleClick(
     }
 }
 
-@Composable
-fun GlideImageInCompose(
-    modifier: Modifier,
-    model: String,
-    contentScale: ImageView.ScaleType? = ImageView.ScaleType.CENTER_CROP
-) {
-    AndroidView(
-        modifier = modifier,
-        factory = { context ->
-            ImageView(context).apply {
-                scaleType = contentScale
-            }
-        },
-        update = { imageView ->
-            if (BuildConfig.DEVELOPER_MODE) {
-                Glide.with(imageView.context)
-                    .load(model)
-                    .placeholder(commonDrawable.placeholder_normal)
-                    .addListener(object : RequestListener<Drawable> {
-                        override fun onLoadFailed(
-                            e: GlideException?,
-                            model: Any?,
-                            target: Target<Drawable>,
-                            isFirstResource: Boolean
-                        ): Boolean {
-                            Timber.e("onLoadFailed:url:$model \n msg:${e?.message}")
-                            e?.logRootCauses("Common")
-                            return false
-                        }
 
-                        override fun onResourceReady(
-                            resource: Drawable,
-                            model: Any,
-                            target: Target<Drawable>?,
-                            dataSource: DataSource,
-                            isFirstResource: Boolean
-                        ): Boolean {
-                            Timber.e("loadSuccess")
-                            return false
-                        }
-
-                    })
-                    .into(imageView)
-            } else {
-                Glide.with(imageView.context)
-                    .load(model)
-                    .placeholder(commonDrawable.placeholder_normal)
-                    .into(imageView)
-            }
-        }
-    )
-}
 
 //跑马灯效果
 fun Modifier.marquee() = composed {

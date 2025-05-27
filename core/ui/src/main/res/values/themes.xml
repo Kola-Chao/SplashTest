@@ -31,16 +31,6 @@
         <item name="android:windowLightNavigationBar" tools:targetApi="27">true</item>
     </style>
 
-    <style name="Theme.App.Splash" parent="NightAdjusted.Theme.Splash">
-        <!--        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_splash</item>-->
-        <!--        <item name="postSplashScreenTheme">@style/Theme.App</item>-->
-        <!-- 设定窗口背景 -->
-        <item name="android:windowBackground">@drawable/splash_screen</item>
-        <!-- 设定系统状态栏背景 -->
-        <!--        <item name="android:windowBackground">@drawable/splash_logo</item>-->
-        <!--        &lt;!&ndash; 让状态栏、导航栏与背景一致 &ndash;&gt;-->
-        <!--        <item name="android:statusBarColor">@color/white</item>-->
-        <!--        <item name="android:navigationBarColor">@color/white</item>-->
-    </style>
+
 
 </resources>

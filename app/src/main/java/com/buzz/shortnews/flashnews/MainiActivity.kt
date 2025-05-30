@@ -74,13 +74,14 @@ class MainiActivity : FNBaseActivity() {
 
             CompositionLocalProvider {  // ✅ 只在 splash 结束后显示 NewsApp，且只显示一次
                 if (shouldShowApp) {
-                    NewsApp()
+                    SplashContainerViewGroup {
+                        businessSDKUtil.splashContainer = it
+                    }
                 }
 
                 if (showSplashHolder) {
                     SplashScreenDialog(duration, onFinish = {
                         finishSplashScreen = true
-                        showSplashHolder = false
                         finishSplashLoading()
                     }, dismissCallback = {})
                 }
@@ -103,7 +104,7 @@ class MainiActivity : FNBaseActivity() {
 
     override fun onAdShow(p0: ATAdInfo?) {
         super.onAdShow(p0)
-        businessSDKUtil.loadSplashAd()
+        finishSplashLoading()
     }
 
     override fun onAdLoaded(p0: Boolean) {
@@ -112,7 +113,6 @@ class MainiActivity : FNBaseActivity() {
         if (showSplashHolder) {
             businessSDKUtil.showSplashAd(
                 this@MainiActivity,
-                splashContainer,
 //                    this@MainiActivity,
             )
         }
@@ -121,6 +121,7 @@ class MainiActivity : FNBaseActivity() {
     override fun onAdDismiss(p0: ATAdInfo?, p1: ATSplashAdExtraInfo?) {
         super.onAdDismiss(p0, p1)
         finishSplashLoading()
+        businessSDKUtil.loadSplashAd()
     }
 
     private fun finishSplashLoading() {

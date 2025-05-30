@@ -119,7 +119,6 @@ class NewsApplication : Application() {
                                 )
                                 businessSDKUtil.showSplashAd(
                                     currentActivity,
-                                    currentActivity.splashContainer,
 //                                    currentActivity
                                 )
                             } else {

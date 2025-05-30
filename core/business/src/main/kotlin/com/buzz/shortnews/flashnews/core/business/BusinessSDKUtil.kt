@@ -2,7 +2,9 @@ package com.buzz.shortnews.flashnews.core.business
 
 import android.app.Activity
 import android.net.Uri
+import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.compose.ui.tooling.preview.Devices
 import com.anythink.core.api.ATShowConfig
@@ -21,27 +23,31 @@ class BusinessSDKUtil @Inject constructor(
     private val businessSDK: BusinessSDK,
     private val appScope: CoroutineScope,
 ) {
+    // 内置的广告容器
+    var splashContainer: ViewGroup? = null
+
     /**
      * 显示 Splash 广告
      * @param container 可选：广告展示容器，如果为空则使用默认 splashContainer
      */
     fun showSplashAd(
         activity: Activity,
-        container: ViewGroup,
 //        listener: ATSplashAdListener
     ) {
-        appScope.launch {
-            val splashAd = businessSDK.getSplashAd() ?: return@launch
-            Timber.d("showSplashAd:${splashAd.isAdReady}")
-            if (splashAd.isAdReady) {
-                container.visibility = ViewGroup.VISIBLE
-                val showConfig = ATShowConfig.Builder()
-                    .scenarioId("splash")
-                    .build()
+        splashContainer?.let {
+            appScope.launch {
+                val splashAd = businessSDK.getSplashAd() ?: return@launch
+                Timber.d("showSplashAd:${splashAd.isAdReady}")
+                if (splashAd.isAdReady) {
+                    it.visibility = ViewGroup.VISIBLE
+                    val showConfig = ATShowConfig.Builder()
+                        .scenarioId("splash")
+                        .build()
 //            splashAd.setAdListener(listener)
-                splashAd.show(activity, container, null, showConfig)
-            } else {
-                splashAd.loadAd()
+                    splashAd.show(activity, it, null, showConfig)
+                } else {
+                    splashAd.loadAd()
+                }
             }
         }
     }
